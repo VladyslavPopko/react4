@@ -1,39 +1,37 @@
 import { useEffect, useState } from "react";
-import UserCard from './UserCard';
+import UserCard from "./UserCard";
 
 const Users = () => {
+  const [users, setUsers] = useState([]);
 
-    const [users, setUsers] = useState([])
+  useEffect(() => {
+    const getUsers = async () => {
+      try {
+        const res = await fetch(
+          "https://659156f48cbbf8afa96c1892.mockapi.io/homework"
+        );
 
-    useEffect(() => {
-
-        const getUsers = async () => {
-            try {
-                const res = await fetch('https://659156f48cbbf8afa96c1892.mockapi.io/homework');
-            
-            if (!res.ok) {
-                throw new Error("Failed to fetch");
-            }
-            
-            const data = await res.json();
-            setUsers(data);
-        } catch (e){
-            console.error(e.message);
+        if (!res.ok) {
+          throw new Error("Failed to fetch");
         }
-        };
 
-        getUsers();
+        const data = await res.json();
+        setUsers(data);
+      } catch (e) {
+        console.error(e.message);
+      }
+    };
 
-    }, []);
+    getUsers();
+  }, []);
 
-    return (
-        <>
+  return (
+    <>
+      {users.map((user) => (
+        <UserCard userData={user} key={user.id} />
+      ))}
+    </>
+  );
+};
 
-        {users.map(user => <UserCard userData={user} key={user.id}/>) }
-
-        </>
-    )
-
-}
-{/*  */}
 export default Users;

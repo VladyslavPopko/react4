@@ -1,13 +1,11 @@
-import Users from "./components/Users/Users"
+import Users from "./components/Users/Users";
 
 function App() {
-
   return (
     <>
       <Users />
     </>
-  )
-
+  );
 }
 
-export default App
+export default App;
